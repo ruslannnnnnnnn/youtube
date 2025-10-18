@@ -68,7 +68,7 @@ func GetDownloader() *ytdl.Downloader {
 	return downloader
 }
 
-func getVideoWithFormat(videoID string) (*youtube.Video, *youtube.Format, error) {
+func GetVideoWithFormat(videoID string) (*youtube.Video, *youtube.Format, error) {
 	dl := GetDownloader()
 	video, err := dl.GetVideo(videoID)
 	if err != nil {
