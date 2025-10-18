@@ -5,6 +5,7 @@ import (
 	"os"
 
 	homedir "github.com/mitchellh/go-homedir"
+	"github.com/ruslannnnnnnnn/youtube/v2/pkg"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -36,7 +37,7 @@ func init() {
 
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.youtubedr.yaml)")
 	rootCmd.PersistentFlags().StringVar(&logLevel, "log-level", "info", "Set log level (error/warn/info/debug)")
-	rootCmd.PersistentFlags().BoolVar(&insecureSkipVerify, "insecure", false, "Skip TLS server certificate verification")
+	rootCmd.PersistentFlags().BoolVar(&pkg.insecureSkipVerify, "insecure", false, "Skip TLS server certificate verification")
 }
 
 // initConfig reads in config file and ENV variables if set.

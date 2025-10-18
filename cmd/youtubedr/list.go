@@ -6,6 +6,7 @@ import (
 	"os"
 
 	"github.com/olekukonko/tablewriter"
+	"github.com/ruslannnnnnnnn/youtube/v2/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -25,7 +26,7 @@ var (
 			return checkOutputFormat()
 		},
 		Run: func(_ *cobra.Command, args []string) {
-			playlist, err := GetDownloader().GetPlaylist(args[0])
+			playlist, err := pkg.GetDownloader().GetPlaylist(args[0])
 			exitOnError(err)
 
 			playlistInfo := PlaylistInfo{

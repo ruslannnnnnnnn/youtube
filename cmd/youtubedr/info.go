@@ -8,6 +8,7 @@ import (
 	"strings"
 
 	"github.com/olekukonko/tablewriter"
+	"github.com/ruslannnnnnnnn/youtube/v2/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -42,7 +43,7 @@ var infoCmd = &cobra.Command{
 		return checkOutputFormat()
 	},
 	Run: func(_ *cobra.Command, args []string) {
-		video, err := GetDownloader().GetVideo(args[0])
+		video, err := pkg.GetDownloader().GetVideo(args[0])
 		exitOnError(err)
 
 		videoInfo := VideoInfo{

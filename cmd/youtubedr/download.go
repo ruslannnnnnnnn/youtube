@@ -7,6 +7,7 @@ import (
 	"os/exec"
 	"strings"
 
+	"github.com/ruslannnnnnnnn/youtube/v2/pkg"
 	"github.com/spf13/cobra"
 )
 
@@ -24,33 +25,33 @@ var downloadCmd = &cobra.Command{
 var (
 	ffmpegCheck error
 	outputFile  string
-	outputDir   string
+	OutputDir   string
 )
 
 func init() {
 	rootCmd.AddCommand(downloadCmd)
 
 	downloadCmd.Flags().StringVarP(&outputFile, "filename", "o", "", "The output file, the default is genated by the video title.")
-	downloadCmd.Flags().StringVarP(&outputDir, "directory", "d", ".", "The output directory.")
-	addVideoSelectionFlags(downloadCmd.Flags())
+	downloadCmd.Flags().StringVarP(&OutputDir, "directory", "d", ".", "The output directory.")
+	pkg.addVideoSelectionFlags(downloadCmd.Flags())
 }
 
 func download(id string) error {
-	video, format, err := getVideoWithFormat(id)
+	video, format, err := pkg.getVideoWithFormat(id)
 	if err != nil {
 		return err
 	}
 
-	log.Println("download to directory", outputDir)
+	log.Println("download to directory", OutputDir)
 
-	if strings.HasPrefix(outputQuality, "hd") {
+	if strings.HasPrefix(pkg.outputQuality, "hd") {
 		if err := checkFFMPEG(); err != nil {
 			return err
 		}
-		return downloader.DownloadComposite(context.Background(), outputFile, video, outputQuality, mimetype, language)
+		return pkg.downloader.DownloadComposite(context.Background(), outputFile, video, pkg.outputQuality, pkg.mimetype, pkg.language)
 	}
 
-	return downloader.Download(context.Background(), video, format, outputFile)
+	return pkg.downloader.Download(context.Background(), video, format, outputFile)
 }
 
 func checkFFMPEG() error {
