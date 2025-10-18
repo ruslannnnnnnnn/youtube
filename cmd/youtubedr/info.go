@@ -42,7 +42,7 @@ var infoCmd = &cobra.Command{
 		return checkOutputFormat()
 	},
 	Run: func(_ *cobra.Command, args []string) {
-		video, err := getDownloader().GetVideo(args[0])
+		video, err := GetDownloader().GetVideo(args[0])
 		exitOnError(err)
 
 		videoInfo := VideoInfo{

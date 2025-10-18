@@ -25,7 +25,7 @@ var (
 			return checkOutputFormat()
 		},
 		Run: func(_ *cobra.Command, args []string) {
-			playlist, err := getDownloader().GetPlaylist(args[0])
+			playlist, err := GetDownloader().GetPlaylist(args[0])
 			exitOnError(err)
 
 			playlistInfo := PlaylistInfo{

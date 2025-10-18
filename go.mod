@@ -1,4 +1,4 @@
-module github.com/kkdai/youtube/v2
+module github.com/ruslannnnnnnnn/youtube/v2
 
 go 1.23.0
 
@@ -7,6 +7,7 @@ toolchain go1.23.3
 require (
 	github.com/bitly/go-simplejson v0.5.1
 	github.com/dop251/goja v0.0.0-20250125213203-5ef83b82af17
+	github.com/kkdai/youtube/v2 v2.10.4
 	github.com/mitchellh/go-homedir v1.1.0
 	github.com/olekukonko/tablewriter v0.0.5
 	github.com/spf13/cobra v1.9.1
@@ -33,7 +34,6 @@ require (
 	github.com/pelletier/go-toml/v2 v2.2.3 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/rivo/uniseg v0.4.7 // indirect
-	github.com/rogpeppe/go-internal v1.13.1 // indirect
 	github.com/sagikazarmark/locafero v0.7.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
 	github.com/sourcegraph/conc v0.3.0 // indirect

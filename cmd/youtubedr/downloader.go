@@ -30,7 +30,7 @@ func addVideoSelectionFlags(flagSet *pflag.FlagSet) {
 	flagSet.StringVarP(&language, "language", "l", "", "Language to filter")
 }
 
-func getDownloader() *ytdl.Downloader {
+func GetDownloader() *ytdl.Downloader {
 	if downloader != nil {
 		return downloader
 	}
@@ -69,7 +69,7 @@ func getDownloader() *ytdl.Downloader {
 }
 
 func getVideoWithFormat(videoID string) (*youtube.Video, *youtube.Format, error) {
-	dl := getDownloader()
+	dl := GetDownloader()
 	video, err := dl.GetVideo(videoID)
 	if err != nil {
 		return nil, nil, err
