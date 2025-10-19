@@ -33,25 +33,25 @@ func init() {
 
 	downloadCmd.Flags().StringVarP(&outputFile, "filename", "o", "", "The output file, the default is genated by the video title.")
 	downloadCmd.Flags().StringVarP(&OutputDir, "directory", "d", ".", "The output directory.")
-	pkg.addVideoSelectionFlags(downloadCmd.Flags())
+	pkg.AddVideoSelectionFlags(downloadCmd.Flags())
 }
 
 func download(id string) error {
-	video, format, err := pkg.getVideoWithFormat(id)
+	video, format, err := pkg.GetVideoWithFormat(id)
 	if err != nil {
 		return err
 	}
 
 	log.Println("download to directory", OutputDir)
 
-	if strings.HasPrefix(pkg.outputQuality, "hd") {
+	if strings.HasPrefix(pkg.OutputQuality, "hd") {
 		if err := checkFFMPEG(); err != nil {
 			return err
 		}
-		return pkg.downloader.DownloadComposite(context.Background(), outputFile, video, pkg.outputQuality, pkg.mimetype, pkg.language)
+		return pkg.Downloader.DownloadComposite(context.Background(), outputFile, video, pkg.OutputQuality, pkg.Mimetype, pkg.Language)
 	}
 
-	return pkg.downloader.Download(context.Background(), video, format, outputFile)
+	return pkg.Downloader.Download(context.Background(), video, format, outputFile)
 }
 
 func checkFFMPEG() error {

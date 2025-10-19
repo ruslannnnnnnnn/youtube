@@ -17,22 +17,22 @@ import (
 )
 
 var (
-	insecureSkipVerify bool   // skip TLS server validation
-	outputQuality      string // itag number or quality string
-	mimetype           string
-	language           string
-	downloader         *ytdl.Downloader
+	InsecureSkipVerify bool   // skip TLS server validation
+	OutputQuality      string // itag number or quality string
+	Mimetype           string
+	Language           string
+	Downloader         *ytdl.Downloader
 )
 
-func addVideoSelectionFlags(flagSet *pflag.FlagSet) {
-	flagSet.StringVarP(&outputQuality, "quality", "q", "medium", "The itag number or quality label (hd720, medium)")
-	flagSet.StringVarP(&mimetype, "mimetype", "m", "", "Mime-Type to filter (mp4, webm, av01, avc1) - applicable if --quality used is quality label")
-	flagSet.StringVarP(&language, "language", "l", "", "Language to filter")
+func AddVideoSelectionFlags(flagSet *pflag.FlagSet) {
+	flagSet.StringVarP(&OutputQuality, "quality", "q", "medium", "The itag number or quality label (hd720, medium)")
+	flagSet.StringVarP(&Mimetype, "Mimetype", "m", "", "Mime-Type to filter (mp4, webm, av01, avc1) - applicable if --quality used is quality label")
+	flagSet.StringVarP(&Language, "Language", "l", "", "Language to filter")
 }
 
 func GetDownloader() *ytdl.Downloader {
-	if downloader != nil {
-		return downloader
+	if Downloader != nil {
+		return Downloader
 	}
 
 	proxyFunc := httpproxy.FromEnvironment().ProxyFunc()
@@ -53,19 +53,19 @@ func GetDownloader() *ytdl.Downloader {
 
 	youtube.SetLogLevel("info")
 
-	if insecureSkipVerify {
+	if InsecureSkipVerify {
 		youtube.Logger.Info("Skip server certificate verification")
 		httpTransport.TLSClientConfig = &tls.Config{
 			InsecureSkipVerify: true,
 		}
 	}
 
-	downloader = &ytdl.Downloader{
+	Downloader = &ytdl.Downloader{
 		OutputDir: "/tmp",
 	}
-	downloader.HTTPClient = &http.Client{Transport: httpTransport}
+	Downloader.HTTPClient = &http.Client{Transport: httpTransport}
 
-	return downloader
+	return Downloader
 }
 
 func GetVideoWithFormat(videoID string) (*youtube.Video, *youtube.Format, error) {
@@ -75,17 +75,17 @@ func GetVideoWithFormat(videoID string) (*youtube.Video, *youtube.Format, error)
 		return nil, nil, err
 	}
 
-	itag, _ := strconv.Atoi(outputQuality)
+	itag, _ := strconv.Atoi(OutputQuality)
 	formats := video.Formats
 
-	if language != "" {
-		formats = formats.Language(language)
+	if Language != "" {
+		formats = formats.Language(Language)
 	}
-	if mimetype != "" {
-		formats = formats.Type(mimetype)
+	if Mimetype != "" {
+		formats = formats.Type(Mimetype)
 	}
-	if outputQuality != "" {
-		formats = formats.Quality(outputQuality)
+	if OutputQuality != "" {
+		formats = formats.Quality(OutputQuality)
 	}
 	if itag > 0 {
 		formats = formats.Itag(itag)
